@@ -24,7 +24,7 @@ export default function Resume({ zoom = 0.9 }: { zoom?: number }) {
                 pages.map((page, idx) => (
                     <div
                         key={idx}
-                        className="print-letter-page max-w-[8.2in] min-w-[8.2in] max-h-[11in] min-h-[11in] overflow-hidden border shadow-2xl border-black"
+                        className="print-letter-page bg-primary-foreground   dark:bg-secondary  max-w-[8.2in] min-w-[8.2in] max-h-[11in] min-h-[11in] overflow-hidden border shadow-2xl border-black  dark:border-none"
                         style={{ scale: zoom }}
                     >
                         <div className="block [unicode-bidi:isolate]">
@@ -39,7 +39,7 @@ export default function Resume({ zoom = 0.9 }: { zoom?: number }) {
                 ))
             ) : (
                 <div
-                    className="print-letter-page max-w-[8.2in] min-w-[8.2in] max-h-[11in] min-h-[11in] overflow-hidden border shadow-2xl border-black"
+                    className="print-letter-page  bg-primary-foreground dark:bg-secondary max-w-[8.2in] min-w-[8.2in] max-h-[11in] min-h-[11in] overflow-hidden border shadow-2xl border-black dark:border-none"
                     style={{ scale: zoom }}
                 >
                     <div className="block [unicode-bidi:isolate]">
@@ -65,7 +65,6 @@ function getThemeStyle(theme: string) {
         maxWidth: '100%',
         maxHeight: '11in',
         minHeight: '11in',
-        background: 'white',
     };
     switch (theme) {
         case 'classic':

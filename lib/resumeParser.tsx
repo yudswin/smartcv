@@ -146,29 +146,39 @@ function renderClassicEntry(entry: any, key: string | number) {
 // Helper: render modern section entry
 function renderModernEntry(entry: any, key: string | number) {
     return (
-        <div className="mb-3" key={key}>
-            <div className="flex flex-col md:flex-row md:justify-between md:items-center">
-                <div>
-                    <span className="font-semibold text-lg text-black dark:text-white">{entry.title}</span>
-                    {entry.subtitle && <span className="ml-2 text-gray-700 dark:text-gray-300">{entry.subtitle}</span>}
-                    {entry.description && <span className="ml-2 italic text-gray-500 dark:text-gray-400">{entry.description}</span>}
+        <div className="mb-[5px]" key={key}>
+            <div className="flex flex-row justify-between">
+                {entry.date && (
+                    <div className="text-black dark:text-white min-w-[117px] text-sm pr-4 flex-shrink-0 flex items-start">{/* Left: date only */}
+                        <span>{entry.date}</span>
+                    </div>
+                )}
+                <div className="flex-1">
+                    {entry.title && (
+                        <b className=" text-black dark:text-white">{entry.title}</b>
+                    )}
+                    {entry.subtitle && (
+                        <span className="text-gray-700 dark:text-gray-300">, {entry.subtitle}</span>
+                    )}
+                    {entry.description && (
+                        <span className="italic text-gray-500 dark:text-gray-400"> — {entry.description}</span>
+                    )}
+                    {entry.content && entry.content.length > 0 && (
+                        <div className="">
+                            {entry.content.map((c: string, i: number) => (
+                                <div key={i} className="text-gray-800 dark:text-gray-200">{c}</div>
+                            ))}
+                        </div>
+                    )}
+                    {entry.bullets && entry.bullets.length > 0 && (
+                        <ul className="list-disc list-inside mt-1">
+                            {entry.bullets.map((c: string, i: number) => (
+                                <li key={i} className="text-gray-800 dark:text-gray-200">{c}</li>
+                            ))}
+                        </ul>
+                    )}
                 </div>
-                {entry.date && <span className="text-sm text-right text-gray-500 dark:text-gray-400">{entry.date}</span>}
             </div>
-            {entry.content && entry.content.length > 0 && (
-                <div className="mt-1">
-                    {entry.content.map((c: string, i: number) => (
-                        <div key={i} className="text-gray-800 dark:text-gray-200">{c}</div>
-                    ))}
-                </div>
-            )}
-            {entry.bullets && entry.bullets.length > 0 && (
-                <ul className="list-disc list-inside mt-1">
-                    {entry.bullets.map((c: string, i: number) => (
-                        <li key={i} className="text-gray-800 dark:text-gray-200">{c}</li>
-                    ))}
-                </ul>
-            )}
         </div>
     );
 }
@@ -176,7 +186,7 @@ function renderModernEntry(entry: any, key: string | number) {
 // Helper: render minimalist section entry
 function renderMinimalistEntry(entry: any, key: string | number) {
     return (
-        <div className="mb-4" key={key}>
+        <div className="mb-[5px]" key={key}>
             <div className="flex flex-col gap-1">
                 <span className="font-medium text-base text-gray-900 dark:text-white">{entry.title}</span>
                 {entry.subtitle && <span className="text-sm text-gray-500 dark:text-gray-400">{entry.subtitle}</span>}
@@ -245,9 +255,9 @@ export function renderResumeSection(section: Section, style: 'classic' | 'modern
     switch (style) {
         case 'modern':
             return (
-                <div className="Modern__Container mb-6" key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
+                <div key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
                     <h2
-                        className="block text-[1.5em] font-bold [unicode-bidi:isolate] Classic__Header-sc-jtps89-3 hZjTju border-b border-gray-700 dark:border-gray-300 p-0 m-0"
+                        className="block text-[1.5em] font-bold [unicode-bidi:isolate] p-0 m-0"
                     >
                         {section.title}
                     </h2>
@@ -287,5 +297,3 @@ export function renderResumeFromText(text: string, style: 'classic' | 'modern' |
     const sections = parseResumeSections(text);
     return sections.map((section, idx) => renderResumeSection(section, style, idx));
 }
-
-// hello
