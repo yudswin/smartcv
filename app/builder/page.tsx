@@ -1,5 +1,17 @@
 import Editor from "@/components/editor";
 import Preview from "@/components/preview";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Resume Builder",
+    openGraph: {
+        type: "website",
+        title: "SmartCV - AI Resume Builder",
+        description:
+            "SmartCV helps you create professional, AI-powered resumes in minutes. Build, customize, and export your CV with ease.",
+        images: [{ url: "/logos/metaSecondary.png" }],
+    },
+};
 
 export default function BuilderPage() {
     return (

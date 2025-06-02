@@ -1,5 +1,6 @@
 "use client";
 
+import { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 // import { Analytics } from "@vercel/analytics/next";
@@ -17,6 +18,8 @@ const poppins = Poppins({
   display: "swap",
   variable: "--font-poppins",
 });
+
+
 
 export default function RootLayout({
   children,

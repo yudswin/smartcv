@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://smartcv.app/"),
   title: "SmartCV - AI Resume Builder",
   description:
     "SmartCV helps you create professional, AI-powered resumes in minutes. Build, customize, and export your CV with ease.",

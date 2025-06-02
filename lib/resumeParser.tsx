@@ -98,7 +98,7 @@ function renderHeaderClassic(title: string, content: string): JSX.Element {
     return (
         <div className="resume-heading-container">
             <h1
-                className="block text-[2em] font-bold [unicode-bidi:isolate] text-center text-gray-900 dark:text-white m-0"
+                className="block text-[2em] font-bold [unicode-bidi:isolate] text-center text-gray-900 dark:text-white m-0 p-0"
             >
                 {title}
             </h1>
@@ -110,7 +110,7 @@ function renderHeaderClassic(title: string, content: string): JSX.Element {
 // Helper: render classic section entry
 function renderClassicEntry(entry: any, key: string | number) {
     return (
-        <div className="mb-[5px]" key={key}>
+        <div className="mb-[4px]" key={key}>
             <div className="flex flex-row justify-between">
                 <div className="mr-5">
                     <p className="m-0">
@@ -149,7 +149,7 @@ function renderModernEntry(entry: any, key: string | number) {
         <div className="mb-[5px]" key={key}>
             <div className="flex flex-row justify-between">
                 {entry.date && (
-                    <div className="text-black dark:text-white min-w-[117px] text-sm pr-4 flex-shrink-0 flex items-start">{/* Left: date only */}
+                    <div className="text-black dark:text-white min-w-[140px] max-w-[140px] text-sm pr-4 flex-shrink-0 flex items-start">{/* Left: date only */}
                         <span>{entry.date}</span>
                     </div>
                 )}
@@ -158,10 +158,10 @@ function renderModernEntry(entry: any, key: string | number) {
                         <b className=" text-black dark:text-white">{entry.title}</b>
                     )}
                     {entry.subtitle && (
-                        <span className="text-gray-700 dark:text-gray-300">, {entry.subtitle}</span>
+                        <span className="text-black dark:text-white">, {entry.subtitle}</span>
                     )}
                     {entry.description && (
-                        <span className="italic text-gray-500 dark:text-gray-400"> — {entry.description}</span>
+                        <span className="text-black dark:text-white"> — {entry.description}</span>
                     )}
                     {entry.content && entry.content.length > 0 && (
                         <div className="">
@@ -187,23 +187,31 @@ function renderModernEntry(entry: any, key: string | number) {
 function renderMinimalistEntry(entry: any, key: string | number) {
     return (
         <div className="mb-[5px]" key={key}>
-            <div className="flex flex-col gap-1">
-                <span className="font-medium text-base text-gray-900 dark:text-white">{entry.title}</span>
-                {entry.subtitle && <span className="text-sm text-gray-500 dark:text-gray-400">{entry.subtitle}</span>}
-                {entry.description && <span className="text-xs text-gray-400 dark:text-gray-500">{entry.description}</span>}
-                {entry.date && <span className="text-xs text-right text-gray-300 dark:text-gray-600">{entry.date}</span>}
+            <div className="flex flex-row justify-between">
+                <div className="mr-5">
+                    <p className="m-0">
+                        <b>
+                            <span>{entry.title ? <span>{entry.title}</span> : null}</span>
+                            {entry.title ? ', ' : null}
+                        </b>
+                        <span>{entry.subtitle ? <span>{entry.subtitle}</span> : null}</span>
+                        {entry.subtitle && entry.description ? ' — ' : null}
+                        <span>{entry.description ? <span>{entry.description}</span> : null}</span>
+                    </p>
+                </div>
+                <p className="text-right m-0 text-primary/50">{entry.date || ''}</p>
             </div>
             {entry.content && entry.content.length > 0 && (
                 <div className="mt-1">
                     {entry.content.map((c: string, i: number) => (
-                        <div key={i} className="text-gray-700 dark:text-gray-300 pl-2">{c}</div>
+                        <div key={i} className="text-gray-800 dark:text-gray-200">{c}</div>
                     ))}
                 </div>
             )}
             {entry.bullets && entry.bullets.length > 0 && (
-                <ul className="list-none mt-1">
+                <ul className="list-disc list-inside mt-1">
                     {entry.bullets.map((c: string, i: number) => (
-                        <li key={i} className="text-gray-700 dark:text-gray-300 pl-2">{c}</li>
+                        <li key={i} className="text-gray-800 dark:text-gray-200">{c}</li>
                     ))}
                 </ul>
             )}
@@ -214,26 +222,32 @@ function renderMinimalistEntry(entry: any, key: string | number) {
 // Helper: render simple section entry
 function renderSimpleEntry(entry: any, key: string | number) {
     return (
-        <div className="mb-2" key={key}>
-            <div className="flex flex-row justify-between items-center">
-                <div>
-                    <span className="font-semibold">{entry.title}</span>
-                    {entry.subtitle && <span className="ml-1">{entry.subtitle}</span>}
-                    {entry.description && <span className="ml-1 text-xs text-gray-500">{entry.description}</span>}
+        <div className="mb-[4px]" key={key}>
+            <div className="flex flex-row justify-between">
+                <div className="mr-5">
+                    <p className="m-0">
+                        <b>
+                            <span>{entry.title ? <span>{entry.title}</span> : null}</span>
+                            {entry.title ? ', ' : null}
+                        </b>
+                        <span>{entry.subtitle ? <span>{entry.subtitle}</span> : null}</span>
+                        {entry.subtitle && entry.description ? ' — ' : null}
+                        <span>{entry.description ? <span>{entry.description}</span> : null}</span>
+                    </p>
+                    <p className="text-primary/50">{entry.date || ''}</p>
                 </div>
-                {entry.date && <span className="text-xs text-gray-400">{entry.date}</span>}
             </div>
             {entry.content && entry.content.length > 0 && (
-                <div className="mt-0">
+                <div>
                     {entry.content.map((c: string, i: number) => (
-                        <div key={i} className="text-xs text-gray-700 pl-2">{c}</div>
+                        <div key={i} className="text-gray-800 dark:text-gray-200">{c}</div>
                     ))}
                 </div>
             )}
             {entry.bullets && entry.bullets.length > 0 && (
-                <ul className="list-none mt-0">
+                <ul className="list-disc list-inside">
                     {entry.bullets.map((c: string, i: number) => (
-                        <li key={i} className="text-xs text-gray-700 pl-2">{c}</li>
+                        <li key={i} className="text-gray-800 dark:text-gray-200">{c}</li>
                     ))}
                 </ul>
             )}
@@ -266,15 +280,23 @@ export function renderResumeSection(section: Section, style: 'classic' | 'modern
             );
         case 'minimalist':
             return (
-                <div className="Minimalist__Container mb-8" key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
-                    <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-1 border-b border-gray-200 dark:border-gray-700">{section.title}</h2>
-                    {entries.map((entry, idx) => renderMinimalistEntry(entry, idx))}
+                <div className="flex flex-row w-full my-5" key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
+                    <div className="min-w-[15%] max-w-[15%] mr-5 text-right">
+                        <h2 className="text-[1.5em]">
+                            {section.title}
+                        </h2>
+                    </div>
+                    <div className="flex flex-col w-full">
+                        {entries.map((entry, idx) => renderMinimalistEntry(entry, idx))}
+                    </div>
                 </div>
             );
         case 'simple':
             return (
-                <div className="Simple__Container mb-3" key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
-                    <h2 className="text-base font-bold text-gray-800 dark:text-white mb-0">{section.title}</h2>
+                <div className="Simple__Container my-2.5" key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
+                    <h2 className="block text-[1.5em] font-bold [unicode-bidi:isolate]">
+                        {section.title}
+                    </h2>
                     {entries.map((entry, idx) => renderSimpleEntry(entry, idx))}
                 </div>
             );
