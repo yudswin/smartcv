@@ -287,3 +287,5 @@ export function renderResumeFromText(text: string, style: 'classic' | 'modern' |
     const sections = parseResumeSections(text);
     return sections.map((section, idx) => renderResumeSection(section, style, idx));
 }
+
+// hello
