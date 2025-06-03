@@ -1,39 +1,22 @@
 "use client"
 
-import React, { useRef, useState, useEffect } from 'react'
-import Resume from './resume'
-import { Button } from "@/components/shadcn/button";
-import { ZoomIn, ZoomOut } from "lucide-react";
+import React, { useRef, useState } from 'react';
+import Resume from './resume';
+import { Button } from '@/components/shadcn/button';
+import { ZoomIn, ZoomOut } from 'lucide-react';
 import { useReactToPrint } from 'react-to-print';
-import { useSelector } from "react-redux";
-import type { RootState } from "@/lib/store";
-import { FONT_OPTIONS } from "@/constants/fonts";
 
 export default function Preview() {
     const [zoom, setZoom] = useState(0.9);
     const resumeRef = useRef<HTMLDivElement>(null);
-    const [pageStyle, setPageStyle] = useState('');
-    const font = useSelector((state: RootState) => state.theme.font);
+    const [pageStyle] = useState('');
 
-    useEffect(() => {
-        fetch('/globals.css')
-            .then(res => res.text())
-            .then((css) => {
-                const selected = FONT_OPTIONS.find(f => f.value === font);
-                let fontFace = '';
-                if (selected) {
-                    fontFace = `\n@font-face {\n  font-family: '${selected.label}';\n  src: url('${selected.files.regular}') format('truetype');\n  font-weight: 400;\n  font-style: normal;\n}\n@font-face {\n  font-family: '${selected.label}';\n  src: url('${selected.files.bold}') format('truetype');\n  font-weight: 700;\n  font-style: normal;\n}`;
-                }
-                setPageStyle(css + fontFace);
-            });
-    }, [font]);
-
-    const handleZoomIn = () => setZoom((z) => Math.min(z + 0.1, 2));
-    const handleZoomOut = () => setZoom((z) => Math.max(z - 0.1, 0.5));
+    const handleZoomIn = () => setZoom(z => Math.min(z + 0.1, 2));
+    const handleZoomOut = () => setZoom(z => Math.max(z - 0.1, 0.5));
     const handlePrint = useReactToPrint({
         contentRef: resumeRef,
         documentTitle: 'Resume',
-        pageStyle: pageStyle,
+        pageStyle,
     });
 
     return (
@@ -53,5 +36,5 @@ export default function Preview() {
                 <Resume zoom={zoom} />
             </div>
         </div>
-    )
+    );
 }

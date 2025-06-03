@@ -4,20 +4,20 @@ interface Section {
     key: string;
     title: string;
     content: string;
+    sectionType: string;
 }
 
 // Parses the resume text into sections
 export function parseResumeSections(text: string): Section[] {
-    // Support #header as well as #sectionX
     const sectionRegex = /#(header|section\d+)\s+(.+?)\n([\s\S]*?)(?=(#(header|section\d+)|$))/g;
     const sections: Section[] = [];
     let match;
     while ((match = sectionRegex.exec(text)) !== null) {
-        // match[1] is 'header' or 'sectionX', match[2] is title, match[3] is content
         sections.push({
             key: match[1].trim() + '-' + match[2].trim(),
             title: match[2].trim(),
             content: match[3].trim(),
+            sectionType: match[1].trim().toLowerCase(),
         });
     }
     return sections;
@@ -61,7 +61,7 @@ function parseSectionBody(body: string) {
 }
 
 // Helper: render header section (classic style)
-function renderHeaderClassic(title: string, content: string): JSX.Element {
+function renderHeaderClassic(title: string, content: string, layout: 'one-column' | 'right-handed' | 'left-handed' = 'one-column'): JSX.Element {
     const lines = content.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
     const items = lines.map((line, idx) => {
         if (line.startsWith('mailto:')) {
@@ -87,7 +87,19 @@ function renderHeaderClassic(title: string, content: string): JSX.Element {
             );
         }
     });
-    // Insert dot separator between items
+    if (layout === 'left-handed' || layout === 'right-handed') {
+        return (
+            <div className="resume-heading-container flex flex-row items-center gap-6">
+                <div className={`${layout === 'left-handed' ? 'flex-1' : 'flex-[0.6]'} text-left`}>
+                    <h1 className="text-[2em] font-bold text-gray-900 dark:text-white m-0 p-0">{title}</h1>
+                </div>
+                <div className={`${layout === 'left-handed' ? 'flex-[0.6]' : 'flex-1'} flex flex-col items-start text-sm`}>
+                    {items}
+                </div>
+            </div>
+        );
+    }
+    // Default one-column: centered, with dot separator
     const interleaved = [];
     for (let i = 0; i < items.length; i++) {
         interleaved.push(items[i]);
@@ -97,12 +109,8 @@ function renderHeaderClassic(title: string, content: string): JSX.Element {
     }
     return (
         <div className="resume-heading-container">
-            <h1
-                className="block text-[2em] font-bold [unicode-bidi:isolate] text-center text-gray-900 dark:text-white m-0 p-0"
-            >
-                {title}
-            </h1>
-            <div className="flex justify-center">{interleaved}</div>
+            <h1 className="block text-[2em] font-bold [unicode-bidi:isolate] text-center text-gray-900 dark:text-white m-0 p-0">{title}</h1>
+            <div className="flex justify-center flex-wrap text-sm">{interleaved}</div>
         </div>
     );
 }
@@ -112,7 +120,7 @@ function renderClassicEntry(entry: any, key: string | number) {
     return (
         <div className="mb-[4px]" key={key}>
             <div className="flex flex-row justify-between">
-                <div className="mr-5">
+                <div className="mr-5 flex-1">
                     <p className="m-0">
                         <b>
                             <span>{entry.title ? <span>{entry.title}</span> : null}</span>
@@ -144,18 +152,20 @@ function renderClassicEntry(entry: any, key: string | number) {
 }
 
 // Helper: render modern section entry
-function renderModernEntry(entry: any, key: string | number) {
+function renderModernEntry(entry: any, key: string | number, layout: 'one-column' | 'right-handed' | 'left-handed' = 'one-column') {
     return (
         <div className="mb-[5px]" key={key}>
             <div className="flex flex-row justify-between">
                 {entry.date && (
-                    <div className="text-black dark:text-white min-w-[140px] max-w-[140px] text-sm pr-4 flex-shrink-0 flex items-start">{/* Left: date only */}
+                    <div className={
+                        `text-black dark:text-white flex-[0.22] text-sm pr-4 flex-shrink-0 flex items-start`
+                    }>
                         <span>{entry.date}</span>
                     </div>
                 )}
                 <div className="flex-1">
                     {entry.title && (
-                        <b className=" text-black dark:text-white">{entry.title}</b>
+                        <b className="text-black dark:text-white">{entry.title}</b>
                     )}
                     {entry.subtitle && (
                         <span className="text-black dark:text-white">, {entry.subtitle}</span>
@@ -163,14 +173,14 @@ function renderModernEntry(entry: any, key: string | number) {
                     {entry.description && (
                         <span className="text-black dark:text-white"> — {entry.description}</span>
                     )}
-                    {entry.content && entry.content.length > 0 && (
-                        <div className="">
+                    {entry.content?.length > 0 && (
+                        <div>
                             {entry.content.map((c: string, i: number) => (
                                 <div key={i} className="text-gray-800 dark:text-gray-200">{c}</div>
                             ))}
                         </div>
                     )}
-                    {entry.bullets && entry.bullets.length > 0 && (
+                    {entry.bullets?.length > 0 && (
                         <ul className="list-disc list-inside mt-1">
                             {entry.bullets.map((c: string, i: number) => (
                                 <li key={i} className="text-gray-800 dark:text-gray-200">{c}</li>
@@ -255,12 +265,16 @@ function renderSimpleEntry(entry: any, key: string | number) {
     );
 }
 
-export function renderResumeSection(section: Section, style: 'classic' | 'modern' | 'minimalist' | 'simple' = 'classic', sectionIdx?: number): JSX.Element {
+export function renderResumeSection(
+    section: Section,
+    style: 'classic' | 'modern' | 'minimalist' | 'simple' = 'classic',
+    sectionIdx?: number,
+    layout: 'one-column' | 'right-handed' | 'left-handed' = 'one-column'
+): JSX.Element {
     if (section.key.toLowerCase().startsWith('header')) {
-        // Use a unique key for header too
         return (
             <div key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
-                {renderHeaderClassic(section.title, section.content)}
+                {renderHeaderClassic(section.title, section.content, layout)}
             </div>
         );
     }
@@ -275,10 +289,26 @@ export function renderResumeSection(section: Section, style: 'classic' | 'modern
                     >
                         {section.title}
                     </h2>
-                    {entries.map((entry, idx) => renderModernEntry(entry, idx))}
+                    {entries.map((entry, idx) => renderModernEntry(entry, idx, layout))}
                 </div>
             );
         case 'minimalist':
+            // Use flex-col for two-column layouts to prevent overlap
+            if (layout === 'left-handed' || layout === 'right-handed') {
+                return (
+                    <div className="flex flex-col w-full mb-5" key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
+                        <div className="text-left mb-2">
+                            <h2 className="text-[1.5em]">
+                                {section.title}
+                            </h2>
+                        </div>
+                        <div className="flex flex-col w-full">
+                            {entries.map((entry, idx) => renderMinimalistEntry(entry, idx))}
+                        </div>
+                    </div>
+                );
+            }
+            // Default: flex-row for one-column
             return (
                 <div className="flex flex-row w-full my-5" key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
                     <div className="min-w-[15%] max-w-[15%] mr-5 text-right">
@@ -293,7 +323,7 @@ export function renderResumeSection(section: Section, style: 'classic' | 'modern
             );
         case 'simple':
             return (
-                <div className="Simple__Container my-2.5" key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
+                <div key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
                     <h2 className="block text-[1.5em] font-bold [unicode-bidi:isolate]">
                         {section.title}
                     </h2>
@@ -303,9 +333,9 @@ export function renderResumeSection(section: Section, style: 'classic' | 'modern
         case 'classic':
         default:
             return (
-                <div className="Classic__Container-sc-jtps89-0 jGKyyx" key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
+                <div key={section.key + (sectionIdx !== undefined ? `-${sectionIdx}` : '')}>
                     <h2
-                        className="block text-[1.5em] font-bold [unicode-bidi:isolate] Classic__Header-sc-jtps89-3 hZjTju border-b border-gray-700 dark:border-gray-300 p-0 m-0"
+                        className="block text-[1.5em] font-bold [unicode-bidi:isolate] border-b border-gray-700 dark:border-gray-300 p-0 m-0"
                     >
                         {section.title}
                     </h2>
@@ -315,7 +345,39 @@ export function renderResumeSection(section: Section, style: 'classic' | 'modern
     }
 }
 
-export function renderResumeFromText(text: string, style: 'classic' | 'modern' | 'minimalist' | 'simple' = 'classic'): JSX.Element[] {
+export function renderResumeFromText(
+    text: string,
+    style: 'classic' | 'modern' | 'minimalist' | 'simple' = 'classic',
+    layout: 'one-column' | 'right-handed' | 'left-handed' = 'one-column'
+): JSX.Element[] {
     const sections = parseResumeSections(text);
-    return sections.map((section, idx) => renderResumeSection(section, style, idx));
+    if (layout === 'one-column') {
+        return sections.map((section, idx) => renderResumeSection(section, style, idx, layout));
+    }
+    // Use sectionType for assignment
+    const mainSections = sections.filter(s => s.sectionType === 'section1');
+    const sideSections = sections.filter(s => s.sectionType === 'section2');
+    // Header always on top if present
+    const header = sections.find(s => s.sectionType === 'header');
+    // Compose two-column layout
+    return [
+        header && (
+            <div key="header">{renderResumeSection(header, style, undefined, layout)}</div>
+        ),
+        <div key="twocolumns" className="flex flex-row gap-6 w-full">
+            {layout === 'left-handed' && (
+                <div className="flex-1 min-w-0">
+                    {mainSections.map((section, idx) => renderResumeSection(section, style, idx, layout))}
+                </div>
+            )}
+            <div className="flex-[0.6] min-w-0">
+                {sideSections.map((section, idx) => renderResumeSection(section, style, idx, layout))}
+            </div>
+            {layout === 'right-handed' && (
+                <div className="flex-1 min-w-0">
+                    {mainSections.map((section, idx) => renderResumeSection(section, style, idx, layout))}
+                </div>
+            )}
+        </div>
+    ].filter(Boolean) as JSX.Element[];
 }

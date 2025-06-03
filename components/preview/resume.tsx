@@ -10,6 +10,7 @@ export default function Resume({ zoom = 0.9 }: { zoom?: number }) {
     const font = useSelector((state: RootState) => state.theme.font);
     const textValue = useSelector((state: RootState) => state.textarea.value);
     const theme = useSelector((state: RootState) => state.theme.theme);
+    const layout = useSelector((state: RootState) => state.theme.layout);
     const pages = textValue
         .split(/#pagebreak[\s\S]*?(?=\n|$)/g)
         .filter((page) => page.trim().length > 0);
@@ -32,14 +33,14 @@ export default function Resume({ zoom = 0.9 }: { zoom?: number }) {
                                 className="print-letter-content"
                                 style={{ fontFamily, ...getThemeStyle(selectedTheme.value) }}
                             >
-                                {renderResumeFromText(page, selectedTheme.value as 'classic' | 'modern' | 'minimalist' | 'simple')}
+                                {renderResumeFromText(page, selectedTheme.value as 'classic' | 'modern' | 'minimalist' | 'simple', layout)}
                             </div>
                         </div>
                     </div>
                 ))
             ) : (
                 <div
-                    className="print-letter-page  bg-primary-foreground dark:bg-secondary max-w-[8.2in] min-w-[8.2in] max-h-[11in] min-h-[11in] overflow-hidden border shadow-2xl border-black dark:border-none"
+                    className="print-letter-page bg-primary-foreground dark:bg-secondary max-w-[8.2in] min-w-[8.2in] max-h-[11in] min-h-[11in] overflow-hidden border shadow-2xl border-black dark:border-none"
                     style={{ scale: zoom }}
                 >
                     <div className="block [unicode-bidi:isolate]">

@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../shadcn/card";
-import { setFont, setTheme } from "@/lib/themeSlice";
+import { setFont, setTheme, setLayout } from "@/lib/themeSlice";
 import type { RootState } from "@/lib/store";
 import { FONT_OPTIONS } from "@/constants/fonts";
-import { THEME_OPTIONS } from "@/constants/themes";
+import { THEME_OPTIONS, LAYOUT_OPTIONS } from "@/constants/themes";
 
 export default function Customize() {
     const dispatch = useDispatch();
     const font = useSelector((state: RootState) => state.theme.font);
     const theme = useSelector((state: RootState) => state.theme.theme);
+    const layout = useSelector((state: RootState) => state.theme.layout);
     const scrollRef = useRef<HTMLDivElement>(null);
     const themeScrollRef = useRef<HTMLDivElement>(null);
     const [isDown, setIsDown] = useState(false);
@@ -128,7 +129,7 @@ export default function Customize() {
                     </div>
                 </CardContent>
             </Card>
-            <Card className="mt-6">
+            <Card className="mt-4">
                 <CardHeader>
                     <CardTitle>Themes</CardTitle>
                     <CardDescription>Change the style of your resume sections</CardDescription>
@@ -154,6 +155,30 @@ export default function Customize() {
                                 </div>
                                 <div className="text-lg font-normal mt-2">{opt.label}</div>
                                 <div className="text-xs text-gray-500 mb-2 text-center px-2">{opt.description}</div>
+                            </button>
+                        ))}
+                    </div>
+                </CardContent>
+            </Card>
+            <Card className="mt-4">
+                <CardHeader>
+                    <CardTitle>Layout</CardTitle>
+                    <CardDescription>Choose your resume layout</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex flex-row gap-4 p-2">
+                        {LAYOUT_OPTIONS.map(opt => (
+                            <button
+                                key={opt.value}
+                                type="button"
+                                className={`flex justify-start items-center flex-col cursor-pointer`}
+                                onClick={() => dispatch(setLayout(opt.value as 'one-column' | 'right-handed' | 'left-handed'))}
+                            >
+                                <div className={`w-42 h-24 flex items-center justify-center mb-2 transition-all shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 ${layout === opt.value ? 'border-primary-500 ring-2 ring-primary-500 bg-accent dark:bg-white' : 'border-gray-700 bg-accent/50 dark:bg-white/50'}`}>
+                                    <img src={opt.preview} alt={opt.label + ' preview'} className={`object-contain w-full h-full ${layout === opt.value ? '' : 'opacity-50'}`} />
+                                </div>
+                                <span>{opt.label}</span>
+                                <div className="text-xs font-normal text-gray-500 text-center">{opt.description}</div>
                             </button>
                         ))}
                     </div>

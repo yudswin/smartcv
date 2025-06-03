@@ -1,5 +1,3 @@
-// filepath: constants/fonts.ts
-// Font data for resume theme selection
 
 export interface FontOption {
     label: string;
@@ -39,8 +37,8 @@ export const FONT_OPTIONS: FontOption[] = [
         description: "Classic LaTeX serif.",
         fontFamily: "'CMU Serif', serif",
         files: {
-            regular: "/fonts/CMU-Serif-Regular.ttf",
-            bold: "/fonts/CMU-Serif-Bold.ttf"
+            regular: "/fonts/cmunrm.ttf",
+            bold: "/fonts/cmunbx.ttf"
         }
     },
     {

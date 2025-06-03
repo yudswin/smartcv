@@ -1,4 +1,3 @@
-/* MONOCHROME COLOR PALETTE */
 const COLORS = {
     background: '#f3ece5',
     red: '#da6940',

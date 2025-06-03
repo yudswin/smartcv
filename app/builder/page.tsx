@@ -3,14 +3,8 @@ import Preview from "@/components/preview";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Resume Builder",
-    openGraph: {
-        type: "website",
-        title: "SmartCV - AI Resume Builder",
-        description:
-            "SmartCV helps you create professional, AI-powered resumes in minutes. Build, customize, and export your CV with ease.",
-        images: [{ url: "/logos/metaSecondary.png" }],
-    },
+    title: "Builder | SmartCV",
+    description: "Builder page containing Editor and Preview components for the SmartCV app.",
 };
 
 export default function BuilderPage() {
@@ -19,7 +13,7 @@ export default function BuilderPage() {
             <div className="min-w-[49.5%] max-w-[49.5%] h-10 rounded-lg">
                 <Editor />
             </div>
-            <div className="flex flex-col items-end h-full min-h-[800px] overflow-scroll border-solid hide-scrollbar rounded-lg border border-border bg-card ">
+            <div className="flex flex-col items-end h-full min-h-[840px] overflow-scroll border-solid hide-scrollbar rounded-lg border border-border bg-card">
                 <Preview />
             </div>
         </div>

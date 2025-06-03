@@ -1,5 +1,3 @@
-// Theme options for resume section styles
-
 export interface ThemeOption {
   label: string;
   value: string;
@@ -32,4 +30,32 @@ export const THEME_OPTIONS: ThemeOption[] = [
     description: "Packed, vertical, and information-dense.",
     preview: "/themes/style_simple.png"
   }
+];
+
+export interface LayoutOption {
+  value: string;
+  label: string;
+  description: string;
+  preview: string;
+}
+
+export const LAYOUT_OPTIONS: LayoutOption[] = [
+  {
+    value: 'one-column',
+    label: 'One Column',
+    description: 'Reliable one column format',
+    preview: '/layouts/one_collumn.svg',
+  },
+  {
+    value: 'right-handed',
+    label: 'Right-Handed',
+    description: 'Two column, right side is bigger',
+    preview: '/layouts/right_handed.svg',
+  },
+  {
+    value: 'left-handed',
+    label: 'Left-Handed',
+    description: 'Two column, left side is bigger',
+    preview: '/layouts/left_handed.svg',
+  },
 ];

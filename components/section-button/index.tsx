@@ -1,6 +1,6 @@
 import React from 'react';
 import { Section } from '@/constants/sections';
-import { Card } from '@/components/shadcn/card';
+import { Card, CardContent } from '@/components/shadcn/card';
 
 interface SectionButtonProps {
     section: Section;
@@ -19,7 +19,7 @@ const SectionButton: React.FC<SectionButtonProps> = ({ section, onClick, selecte
     }
     return (
         <Card
-            className={`p-4 gap-1 text-black cursor-pointer transition border-2 min-w-40 ${selected ? 'border-accent' : 'border-transparent'} hover:border-accent flex flex-col items-center w-40 ${className || ''} ${disabled ? 'pointer-events-none' : ''}`}
+            className={`e text-black cursor-pointer transition border-2 min-w-38 ${selected ? 'border-accent' : 'border-transparent'} hover:border-accent flex flex-col items-center w-38 ${className || ''} ${disabled ? 'pointer-events-none' : ''}`}
             style={{ background: section.color }}
             onClick={disabled ? undefined : onClick}
             tabIndex={0}
@@ -27,8 +27,10 @@ const SectionButton: React.FC<SectionButtonProps> = ({ section, onClick, selecte
             aria-pressed={selected}
             aria-disabled={disabled}
         >
-            {Icon && <Icon size={24} />}
-            <span className="font-semibold text-center text-sm  w-full break-words">{section.name}</span>
+            <CardContent className='flex flex-col justify-center items-center'>
+                {Icon && <Icon size={24} />}
+                <span className="font-semibold text-center text-sm  w-full break-words">{section.name}</span>
+            </CardContent>
         </Card>
     );
 };
