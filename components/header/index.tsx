@@ -13,10 +13,6 @@ export default function Header() {
                     <Image src="/secondary.svg" alt="SmartCV Logo" width={72} height={72} className="hidden rotate-90 transition-all dark:block dark:rotate-0" />
                 </Link>
                 <nav className="flex items-center gap-4">
-                    <Link href="/" className="text-sm font-medium transition-colors hover:text-primary">Home</Link>
-                    <Link href="/about" className="text-sm font-medium transition-colors hover:text-primary">About</Link>
-                    <Link href="/pricing" className="text-sm font-medium transition-colors hover:text-primary">Pricing</Link>
-                    <Link href="/contact" className="text-sm font-medium transition-colors hover:text-primary">Contact</Link>
                     <ModeToggle />
                 </nav>
             </div>
