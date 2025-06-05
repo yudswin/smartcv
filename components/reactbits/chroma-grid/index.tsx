@@ -1,6 +1,8 @@
 "use client"
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
+import { motion } from "framer-motion";
+
 
 export interface ChromaItem {
     image: string | React.ReactNode;
@@ -111,13 +113,17 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
                     {title}
                 </h2>
             )}
-            <div className="grid grid-cols-2 align-middle mx-auto gap-8">
+            <div className="grid px-4 sm:grid-cols-2 align-middle mx-auto gap-8">
                 {data.map((c, i) => (
-                    <article
+                    <motion.article
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.1 * i }}
+                        viewport={{ once: true }}
                         key={i}
                         onMouseMove={handleCardMove}
                         onClick={() => handleCardClick(c.url)}
-                        className={`group relative flex flex-col p-3 w-[400px] rounded-lg overflow-hidden items-start transition-colors duration-300`}
+                        className={`group relative flex flex-col p-2 sm:p-3 w-full sm:w-[400px] rounded-lg overflow-hidden items-start transition-colors duration-300`}
                         style={
                             {
                                 background: c.borderColor,
@@ -157,11 +163,11 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
                                 </span>
                             )}
                         </footer>
-                    </article>
+                    </motion.article>
                 ))}
             </div>
             <div
-                className="absolute inset-0 pointer-events-none z-30"
+                className="sm:absolute inset-0 pointer-events-none z-30"
                 style={{
                     backdropFilter: "grayscale(1) brightness(1)",
                     WebkitBackdropFilter: "grayscale(1) brightness(1)",

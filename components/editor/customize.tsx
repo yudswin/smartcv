@@ -5,6 +5,8 @@ import { setFont, setTheme, setLayout } from "@/lib/themeSlice";
 import type { RootState } from "@/lib/store";
 import { FONT_OPTIONS } from "@/constants/fonts";
 import { THEME_OPTIONS, LAYOUT_OPTIONS } from "@/constants/themes";
+import { motion } from "framer-motion";
+
 
 export default function Customize() {
     const dispatch = useDispatch();
@@ -98,92 +100,113 @@ export default function Customize() {
 
     return (
         <>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Fonts</CardTitle>
-                    <CardDescription>Change the typeface of your resume.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div
-                        ref={scrollRef}
-                        className="flex p-2 flex-row overflow-x-auto gap-4 cursor-grab active:cursor-grabbing"
-                        onMouseDown={handleMouseDown}
-                        onMouseLeave={handleMouseLeave}
-                        onMouseUp={handleMouseUp}
-                        onMouseMove={handleMouseMove}
-                    >
-                        {FONT_OPTIONS.map((opt) => (
-                            <button
-                                key={opt.value}
-                                type="button"
-                                className={`flex justify-start flex-col cursor-pointer`}
-                                onClick={() => dispatch(setFont(opt.value))}
-                            >
-                                <div className={`border rounded-lg bg-accent py-10 min-w-44 flex justify-center transition-all shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 ${font === opt.value ? 'border-primary-500 ring-2 ring-primary-500' : 'border-gray-700 bg-accent/70'}`}>
-                                    <div className={`text-xs font-normal ${font === opt.value ? 'text-primary' : 'text-primary/50'}`} style={{ fontFamily: opt.fontFamily }}>{opt.label}</div>
-                                </div>
-                                <div className="text-lg flex justify-center font-normal" >{opt.label}</div>
-                                <div className="text-xs text-gray-500 mb-2">{opt.description}</div>
-                            </button>
-                        ))}
-                    </div>
-                </CardContent>
-            </Card>
-            <Card className="mt-4">
-                <CardHeader>
-                    <CardTitle>Themes</CardTitle>
-                    <CardDescription>Change the style of your resume sections</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div
-                        ref={themeScrollRef}
-                        className="flex p-2 flex-row overflow-x-auto gap-4 cursor-grab active:cursor-grabbing"
-                        onMouseDown={handleThemeMouseDown}
-                        onMouseLeave={handleThemeMouseLeave}
-                        onMouseUp={handleThemeMouseUp}
-                        onMouseMove={handleThemeMouseMove}
-                    >
-                        {THEME_OPTIONS.map((opt) => (
-                            <button
-                                key={opt.value}
-                                type="button"
-                                className={`flex justify-start items-center flex-col cursor-pointer`}
-                                onClick={() => dispatch(setTheme(opt.value))}
-                            >
-                                <div className={`bg-accent w-fit flex justify-center transition-all shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 ${theme === opt.value ? 'border-primary-500 ring-2 ring-primary-500' : 'border-gray-700 bg-accent/70'}`}>
-                                    <img src={opt.preview} alt={opt.label + ' preview'} className={`min-w-40 h-auto object-cover overflow-clip ${theme === opt.value ? '' : 'opacity-50'}`} />
-                                </div>
-                                <div className="text-lg font-normal mt-2">{opt.label}</div>
-                                <div className="text-xs text-gray-500 mb-2 text-center px-2">{opt.description}</div>
-                            </button>
-                        ))}
-                    </div>
-                </CardContent>
-            </Card>
-            <Card className="mt-4">
-                <CardHeader>
-                    <CardTitle>Layout</CardTitle>
-                    <CardDescription>Choose your resume layout</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex flex-row gap-4 p-2">
-                        {LAYOUT_OPTIONS.map(opt => (
-                            <button
-                                key={opt.value}
-                                type="button"
-                                className={`flex justify-start items-center flex-col cursor-pointer`}
-                                onClick={() => dispatch(setLayout(opt.value as 'one-column' | 'right-handed' | 'left-handed'))}
-                            >
-                                <div className={`w-42 h-24 flex items-center justify-center mb-2 transition-all shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 ${layout === opt.value ? 'border-primary-500 ring-2 ring-primary-500 bg-accent dark:bg-white' : 'border-gray-700 bg-accent/50 dark:bg-white/50'}`}>
-                                    <img src={opt.preview} alt={opt.label + ' preview'} className={`object-contain w-full h-full ${layout === opt.value ? '' : 'opacity-50'}`} />
-                                </div>
-                                <span>{opt.label}</span>
-                                <div className="text-xs font-normal text-gray-500 text-center">{opt.description}</div>
-                            </button>
-                        ))}
-                    </div>
-                </CardContent>
-            </Card>
+            <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.1 }}
+                viewport={{ once: true }}
+            >
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Fonts</CardTitle>
+                        <CardDescription>Change the typeface of your resume.</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div
+                            ref={scrollRef}
+                            className="flex p-2 flex-row overflow-x-auto gap-4 cursor-grab active:cursor-grabbing"
+                            onMouseDown={handleMouseDown}
+                            onMouseLeave={handleMouseLeave}
+                            onMouseUp={handleMouseUp}
+                            onMouseMove={handleMouseMove}
+                        >
+                            {FONT_OPTIONS.map((opt) => (
+                                <button
+                                    key={opt.value}
+                                    type="button"
+                                    className={`flex justify-start flex-col cursor-pointer`}
+                                    onClick={() => dispatch(setFont(opt.value))}
+                                >
+                                    <div className={`border rounded-lg bg-accent py-10 min-w-44 flex justify-center transition-all shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 ${font === opt.value ? 'border-primary-500 ring-2 ring-primary-500' : 'border-gray-700 bg-accent/70'}`}>
+                                        <div className={`text-xs font-normal ${font === opt.value ? 'text-primary' : 'text-primary/50'}`} style={{ fontFamily: opt.fontFamily }}>{opt.label}</div>
+                                    </div>
+                                    <div className="text-lg flex justify-center font-normal" >{opt.label}</div>
+                                    <div className="text-xs text-gray-500 mb-2">{opt.description}</div>
+                                </button>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            </motion.div>
+            <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.2 }}
+                viewport={{ once: true }}
+            >
+                <Card className="mt-4">
+                    <CardHeader>
+                        <CardTitle>Themes</CardTitle>
+                        <CardDescription>Change the style of your resume sections</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div
+                            ref={themeScrollRef}
+                            className="flex p-2 flex-row overflow-x-auto gap-4 cursor-grab active:cursor-grabbing"
+                            onMouseDown={handleThemeMouseDown}
+                            onMouseLeave={handleThemeMouseLeave}
+                            onMouseUp={handleThemeMouseUp}
+                            onMouseMove={handleThemeMouseMove}
+                        >
+                            {THEME_OPTIONS.map((opt) => (
+                                <button
+                                    key={opt.value}
+                                    type="button"
+                                    className={`flex justify-start items-center flex-col cursor-pointer`}
+                                    onClick={() => dispatch(setTheme(opt.value))}
+                                >
+                                    <div className={`bg-accent w-fit flex justify-center transition-all shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 ${theme === opt.value ? 'border-primary-500 ring-2 ring-primary-500' : 'border-gray-700 bg-accent/70'}`}>
+                                        <img src={opt.preview} alt={opt.label + ' preview'} className={`min-w-40 h-auto object-cover overflow-clip ${theme === opt.value ? '' : 'opacity-50'}`} />
+                                    </div>
+                                    <div className="text-lg font-normal mt-2">{opt.label}</div>
+                                    <div className="text-xs text-gray-500 mb-2 text-center px-2">{opt.description}</div>
+                                </button>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            </motion.div>
+            <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.3 }}
+                viewport={{ once: true }}
+            >
+                <Card className="mt-4">
+                    <CardHeader>
+                        <CardTitle>Layout</CardTitle>
+                        <CardDescription>Choose your resume layout</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex flex-row gap-4 p-2">
+                            {LAYOUT_OPTIONS.map(opt => (
+                                <button
+                                    key={opt.value}
+                                    type="button"
+                                    className={`flex justify-start items-center flex-col cursor-pointer`}
+                                    onClick={() => dispatch(setLayout(opt.value as 'one-column' | 'right-handed' | 'left-handed'))}
+                                >
+                                    <div className={`w-42 h-24 flex items-center justify-center mb-2 transition-all shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary-500 ${layout === opt.value ? 'border-primary-500 ring-2 ring-primary-500 bg-accent dark:bg-white' : 'border-gray-700 bg-accent/50 dark:bg-white/50'}`}>
+                                        <img src={opt.preview} alt={opt.label + ' preview'} className={`object-contain w-full h-full ${layout === opt.value ? '' : 'opacity-50'}`} />
+                                    </div>
+                                    <span>{opt.label}</span>
+                                    <div className="text-xs font-normal text-gray-500 text-center">{opt.description}</div>
+                                </button>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            </motion.div>
         </>
     );
 }

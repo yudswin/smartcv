@@ -44,7 +44,7 @@ const defaultTweets: Tweet[] = [
     {
         username: "@Copilot",
         name: "GitHub Copilot",
-        text: "Resume Builder app is cleanly coded and a joy to interact with. Top-notch developer UX.",
+        text: "SmartCV is cleanly coded and a joy to interact with. Top-notch developer UX.",
         link: "https://github.com/features/copilot"
     },
     {

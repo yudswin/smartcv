@@ -1,6 +1,9 @@
+"use client"
 import ChromaGrid from "@/components/reactbits/chroma-grid";
 import COLORS from "@/constants/colors";
-import { SiReact, SiOpenai, SiSimpleicons, SiAdblock, SiSpeedtest, SiAdobeacrobatreader, SiMinutemailer, SiGithub, SiVercel } from "react-icons/si";
+import { SiAdblock, SiSpeedtest, SiAdobeacrobatreader, SiMinutemailer, SiGithub, SiVercel } from "react-icons/si";
+import { motion } from "framer-motion";
+
 
 const featureItems = [
     {
@@ -28,18 +31,23 @@ const featureItems = [
         image: <SiSpeedtest size={48} color="white" />,
         title: "Speedrun it",
         subtitle: "Builder lets you add section templates with a click. Creating is as easy as filling those in.",
-        borderColor: '#00eb09',
+        borderColor: '#00b506',
         gradient: `linear-gradient(145deg, ${COLORS.green}, #0c0a09)`,
     },
 ];
 
 export default function Features() {
     return (
-        <section
+        <motion.section
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.8 }}
+            viewport={{ once: true }}
             className="flex flex-col items-center"
             id="features"
         >
-            <div className="w-full">
+            <div
+                className="w-full">
                 <ChromaGrid
                     items={featureItems}
                     radius={320}
@@ -49,6 +57,6 @@ export default function Features() {
                     title="Why Choose Smart CV?"
                 />
             </div>
-        </section>
+        </motion.section>
     )
 }

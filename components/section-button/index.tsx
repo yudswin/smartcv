@@ -19,7 +19,7 @@ const SectionButton: React.FC<SectionButtonProps> = ({ section, onClick, selecte
     }
     return (
         <Card
-            className={`e text-black cursor-pointer transition border-2 min-w-38 ${selected ? 'border-accent' : 'border-transparent'} hover:border-accent flex flex-col items-center w-38 ${className || ''} ${disabled ? 'pointer-events-none' : ''}`}
+            className={`text-black cursor-pointer transition border-2 min-w-38 ${selected ? 'border-accent' : 'border-transparent'} hover:border-accent flex flex-col items-center w-38 ${className || ''} ${disabled ? 'pointer-events-none' : ''}`}
             style={{ background: section.color }}
             onClick={disabled ? undefined : onClick}
             tabIndex={0}

@@ -1,3 +1,4 @@
+"use client"
 import React, { useRef, useState } from "react";
 import SectionButton from "../section-button";
 import { Card, CardContent } from "../shadcn/card";
@@ -6,6 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "@/lib/store";
 import { setValue, appendValue } from "@/lib/textareaSlice";
 import { Tooltip, TooltipTrigger, TooltipContent } from "../shadcn/tooltip";
+import { motion } from "framer-motion";
+
 
 export default function Sections() {
     const sections = getDefaultSections();
@@ -50,7 +53,7 @@ export default function Sections() {
         if (section.type !== 'pagebreak') {
             const marker = `${section.type} ${section.name}`;
             if (textValue.includes(marker)) {
-                usedSections.add(String(section.key));  
+                usedSections.add(String(section.key));
             }
         }
     });
@@ -78,7 +81,7 @@ export default function Sections() {
                     onMouseUp={handleMouseUp}
                     onMouseMove={handleMouseMove}
                 >
-                    { [
+                    {[
                         ...sections.filter((section) => section.type === 'pagebreak'),
                         ...sections.filter((section) => section.type !== 'pagebreak' && !usedSections.has(String(section.key))),
                         ...sections.filter((section) => section.type !== 'pagebreak' && usedSections.has(String(section.key))),
@@ -87,7 +90,12 @@ export default function Sections() {
                         return (
                             <Tooltip key={section.key}>
                                 <TooltipTrigger asChild>
-                                    <div>
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 1, delay: idx * 0.05 }}
+                                        viewport={{ once: true }}
+                                    >
                                         <SectionButton
                                             section={section}
                                             selected={selectedIdx === idx}
@@ -95,7 +103,7 @@ export default function Sections() {
                                             disabled={isUsed}
                                             className={isUsed ? "opacity-60 cursor-not-allowed bg-gray-300 dark:bg-gray-700" : ""}
                                         />
-                                    </div>
+                                    </motion.div>
                                 </TooltipTrigger>
                                 <TooltipContent side="bottom">
                                     <div className="max-w-xs whitespace-pre-line text-xs">
