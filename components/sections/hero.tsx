@@ -78,7 +78,7 @@ export default function Hero() {
                         }}
                         className="cursor-pointer group inline-block mt-10 bg-primary  px-20 py-3 rounded-lg font-semibold text-lg shadow hover:bg-primary/90 transition-colors"
                     >
-                        <ShinyText text="Get Started >" disabled={false} speed={10} className=" group-hover:text-secondary transition-colors text-[#b5b5b5a4] dark:text-gray-800" />
+                        <ShinyText text="Get Started >" disabled={false} speed={10} className=" group-hover:text-secondary transition-colors text-[#c9c7c7a4] dark:text-gray-800  delay-75" />
                     </button>
                 </Magnet>
             </div>
