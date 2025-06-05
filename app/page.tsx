@@ -44,8 +44,8 @@ export default function Home() {
         velocity={40}
       />
       <Features />
-      <Works />
       <Action />
+      <Works />
       <Footer />
     </main>
   );

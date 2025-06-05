@@ -66,7 +66,7 @@ export default function Hero() {
                                 }}>Hopefully :)</span>
                             </span>
                             &nbsp; for interview attention.
-                        </span>
+                        </span> 
                     </div>
                 </div>
                 <Magnet padding={400} disabled={false} magnetStrength={50}>

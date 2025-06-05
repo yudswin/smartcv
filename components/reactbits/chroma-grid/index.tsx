@@ -107,7 +107,7 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
             }
         >
             {title && (
-                <h2 className="text-2xl my-8 sm:text-3xl font-bold text-center">
+                <h2 className="text-2xl my-12 sm:text-3xl font-bold text-center">
                     {title}
                 </h2>
             )}
