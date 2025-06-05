@@ -36,7 +36,7 @@ const featureItems = [
 export default function Features() {
     return (
         <section
-            className="flex flex-col items-center bg-secondary"
+            className="flex flex-col items-center"
             id="features"
         >
             <div className="w-full">
@@ -46,6 +46,7 @@ export default function Features() {
                     damping={0.4}
                     fadeOut={0.1}
                     ease="power3.out"
+                    title="Why Choose Smart CV?"
                 />
             </div>
         </section>

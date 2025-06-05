@@ -97,7 +97,7 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
             ref={rootRef}
             onPointerMove={handleMove}
             onPointerLeave={handleLeave}
-            className={`relative bg-white dark:bg-secondary pb-10 w-full h-full flex flex-col it justify-start gap-3 ${className}`}
+            className={`relative pb-10 w-full h-full flex flex-col it justify-start gap-3 ${className}`}
             style={
                 {
                     "--r": `${radius}px`,
@@ -106,9 +106,11 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
                 } as React.CSSProperties
             }
         >
-            <h2 className="text-2xl my-8 sm:text-3xl font-bold text-center">
-                Why Choose Smart CV?
-            </h2>
+            {title && (
+                <h2 className="text-2xl my-8 sm:text-3xl font-bold text-center">
+                    {title}
+                </h2>
+            )}
             <div className="grid grid-cols-2 align-middle mx-auto gap-8">
                 {data.map((c, i) => (
                     <article
@@ -161,7 +163,7 @@ const ChromaGrid: React.FC<ChromaGridProps> = ({
             <div
                 className="absolute inset-0 pointer-events-none z-30"
                 style={{
-                    backdropFilter: "grayscale(1) brightness(0.95)",
+                    backdropFilter: "grayscale(1) brightness(1)",
                     WebkitBackdropFilter: "grayscale(1) brightness(1)",
                     background: "rgba(0,0,0,0.001)",
                     maskImage:
