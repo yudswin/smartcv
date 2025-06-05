@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen pt-20">
+    <main className="min-h-screen pt-20 dark:bg-[#060606]">
       <Hero />
       <ScrollVelocity
         texts={['Easy to create ⌚ Easy to edit ✍🏻 Easy to impress 😎']}
