@@ -101,8 +101,8 @@ export default function Customize() {
     return (
         <>
             <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x:-40 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 1, delay: 0.1 }}
                 viewport={{ once: true }}
             >
@@ -139,9 +139,9 @@ export default function Customize() {
                 </Card>
             </motion.div>
             <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.2 }}
+                initial={{ opacity: 0, x:-40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.4 }}
                 viewport={{ once: true }}
             >
                 <Card className="mt-4">
@@ -177,9 +177,9 @@ export default function Customize() {
                 </Card>
             </motion.div>
             <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.3 }}
+                initial={{ opacity: 0, x:-40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.8 }}
                 viewport={{ once: true }}
             >
                 <Card className="mt-4">

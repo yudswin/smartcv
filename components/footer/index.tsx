@@ -30,7 +30,7 @@ export default function Footer() {
             <div className="border-t border-border py-6 px-4">
                 <p className="inline-flex items-center justify-center">
                     Made with{heartIcon}by&nbsp;
-                    <a target="_blank" rel="noopener noreferrer" href="https://yudswin.studio/" className="hover:text-primary">@Yudswin</a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/yudswin/" className="hover:text-primary">@Yudswin</a>
                 </p>
             </div>
         </motion.footer>
