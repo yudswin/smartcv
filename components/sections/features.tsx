@@ -1,57 +1,52 @@
-import Image from "next/image";
+import ChromaGrid from "@/components/reactbits/chroma-grid";
+import COLORS from "@/constants/colors";
+import { SiReact, SiOpenai, SiSimpleicons, SiAdblock, SiSpeedtest, SiAdobeacrobatreader, SiMinutemailer, SiGithub, SiVercel } from "react-icons/si";
+
+const featureItems = [
+    {
+        image: <SiAdblock size={48} color="white" />,
+        title: "Free forever!",
+        subtitle: "No ads, no payments.",
+        borderColor: '#eb7600',
+        gradient: `linear-gradient(145deg, ${COLORS.red}, #0c0a09)`,
+    },
+    {
+        image: <SiAdobeacrobatreader size={48} color="white" />,
+        title: "Print/export as PDF",
+        subtitle: "Select your destination from the print menu. ATS friendly.",
+        borderColor: '#eb0c00',
+        gradient: `linear-gradient(145deg, ${COLORS.lavender}, #0c0a09)`,
+    },
+    {
+        image: <SiMinutemailer size={48} color="white" />,
+        title: "No sign-in needed",
+        subtitle: "Just copy and paste and you're back!",
+        borderColor: '#004beb',
+        gradient: `linear-gradient(145deg, ${COLORS.purple}, #0c0a09)`,
+    },
+    {
+        image: <SiSpeedtest size={48} color="white" />,
+        title: "Speedrun it",
+        subtitle: "Builder lets you add section templates with a click. Creating is as easy as filling those in.",
+        borderColor: '#00eb09',
+        gradient: `linear-gradient(145deg, ${COLORS.green}, #0c0a09)`,
+    },
+];
 
 export default function Features() {
     return (
         <section
-            className="py-16 px-4 sm:px-8 flex flex-col items-center bg-secondary"
+            className="flex flex-col items-center bg-secondary"
             id="features"
         >
-            <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center">
-                Why Choose Smart CV?
-            </h2>
-            <div className="grid gap-8 sm:grid-cols-3 max-w-5xl w-full">
-                <div className="flex flex-col items-center text-center p-6 rounded-lg border border-border bg-card">
-                    <Image
-                        src="/file.svg"
-                        alt="Easy Editing"
-                        width={32}
-                        height={32}
-                        className="mb-4"
-                    />
-                    <h3 className="font-semibold text-lg mb-2">Easy Editing</h3>
-                    <p className="text-muted-foreground">
-                        Edit and customize your CV with a simple, intuitive interface. No
-                        design skills needed.
-                    </p>
-                </div>
-                <div className="flex flex-col items-center text-center p-6 rounded-lg border border-border bg-card">
-                    <Image
-                        src="/globe.svg"
-                        alt="AI Assistance"
-                        width={32}
-                        height={32}
-                        className="mb-4"
-                    />
-                    <h3 className="font-semibold text-lg mb-2">AI Assistance</h3>
-                    <p className="text-muted-foreground">
-                        Get smart suggestions for content, layout, and keywords to make your
-                        CV stand out.
-                    </p>
-                </div>
-                <div className="flex flex-col items-center text-center p-6 rounded-lg border border-border bg-card">
-                    <Image
-                        src="/window.svg"
-                        alt="Export Options"
-                        width={32}
-                        height={32}
-                        className="mb-4"
-                    />
-                    <h3 className="font-semibold text-lg mb-2">Export & Share</h3>
-                    <p className="text-muted-foreground">
-                        Download your CV as PDF or share a link. Apply to jobs with
-                        confidence and ease.
-                    </p>
-                </div>
+            <div className="w-full">
+                <ChromaGrid
+                    items={featureItems}
+                    radius={320}
+                    damping={0.4}
+                    fadeOut={0.1}
+                    ease="power3.out"
+                />
             </div>
         </section>
     )
