@@ -3,7 +3,6 @@ import Image from "next/image";
 import { FaCoffee, FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-
 export default function Action() {
     return (
         <motion.section
