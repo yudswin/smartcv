@@ -5,6 +5,7 @@ import { NavButton } from "./nav-button"
 import { CiMail } from "react-icons/ci";
 import { Banner } from "./banner";
 
+
 export default function Header() {
     return (
         <header className={
