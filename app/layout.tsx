@@ -30,7 +30,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <body className={`${poppins.className} antialiased`} >
+      <body className={`${poppins.className} antialiased bg-background`} >
         <Provider store={store}>
           <ThemeProvider
             attribute="class"

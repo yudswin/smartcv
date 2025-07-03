@@ -1,11 +1,11 @@
 "use client"
+import Editor from "@/components/signature/editor";
 import { Button } from "@/components/shadcn/button";
 import { Card } from "@/components/shadcn/card";
 import { Label } from "@/components/shadcn/label";
 import { Switch } from "@/components/shadcn/switch";
 import { Drawer } from "@/components/signature/drawer";
 import { DrawerItem } from "@/components/signature/drawer-item";
-import { Editor } from "@/components/signature/editor";
 import { ArrowDown } from "lucide-react";
 import { useState } from "react";
 

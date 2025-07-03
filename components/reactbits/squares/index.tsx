@@ -14,14 +14,30 @@ interface SquaresProps {
     borderColor?: CanvasStrokeStyle;
     squareSize?: number;
     hoverFillColor?: CanvasStrokeStyle;
+    // Extended props
+    opacity?: number;
+    enableHover?: boolean;
+    gradient?: {
+        enabled?: boolean;
+        intensity?: number;
+        centerX?: number;
+        centerY?: number;
+    };
+    pattern?: "grid" | "dots" | "lines";
+    className?: string;
 }
 
 const Squares: React.FC<SquaresProps> = ({
-    direction = "right",
+    direction = "diagonal",
     speed = 1,
     borderColor = "#999",
     squareSize = 40,
     hoverFillColor = "#222",
+    opacity = 0.55,
+    enableHover = true,
+    gradient,
+    pattern = "grid",
+    className,
 }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const requestRef = useRef<number | null>(null);
@@ -73,19 +89,33 @@ const Squares: React.FC<SquaresProps> = ({
                 }
             }
 
-            const gradient = ctx.createRadialGradient(
-                canvas.width / 2,
-                canvas.height / 2,
-                0,
-                canvas.width / 2,
-                canvas.height / 2,
-                Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 2
-            );
-            gradient.addColorStop(0, "rgba(0, 0, 0, 0)");
-            gradient.addColorStop(1, "#060606");
+            if (gradient?.enabled) {
+                const grd = ctx.createRadialGradient(
+                    gradient.centerX ?? canvas.width / 2,
+                    gradient.centerY ?? canvas.height / 2,
+                    0,
+                    gradient.centerX ?? canvas.width / 2,
+                    gradient.centerY ?? canvas.height / 2,
+                    Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 2
+                );
+                grd.addColorStop(0, "rgba(0, 0, 0, 0)");
 
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = grd;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            } else {
+                const grd = ctx.createRadialGradient(
+                    canvas.width / 2,
+                    canvas.height / 2,
+                    0,
+                    canvas.width / 2,
+                    canvas.height / 2,
+                    Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 2
+                );
+                grd.addColorStop(0, "rgba(0, 0, 0, 0)");
+
+                ctx.fillStyle = grd;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
         };
 
         const updateAnimation = () => {
@@ -149,22 +179,23 @@ const Squares: React.FC<SquaresProps> = ({
             hoveredSquareRef.current = null;
         };
 
-        canvas.addEventListener("mousemove", handleMouseMove);
-        canvas.addEventListener("mouseleave", handleMouseLeave);
+        // canvas.addEventListener("mousemove", handleMouseMove);
+        // canvas.addEventListener("mouseleave", handleMouseLeave);
         requestRef.current = requestAnimationFrame(updateAnimation);
 
         return () => {
             window.removeEventListener("resize", resizeCanvas);
             if (requestRef.current) cancelAnimationFrame(requestRef.current);
-            canvas.removeEventListener("mousemove", handleMouseMove);
-            canvas.removeEventListener("mouseleave", handleMouseLeave);
+            // canvas.removeEventListener("mousemove", handleMouseMove);
+            // canvas.removeEventListener("mouseleave", handleMouseLeave);
         };
-    }, [direction, speed, borderColor, hoverFillColor, squareSize]);
+    }, [direction, speed, borderColor, hoverFillColor, squareSize, gradient]);
 
     return (
         <canvas
             ref={canvasRef}
-            className="w-full h-full border-none block"
+            className={`w-full h-full border-none block ${className}`}
+            style={{ opacity }}
         ></canvas>
     );
 };

@@ -1,9 +1,4 @@
-export interface ThemeOption {
-  label: string;
-  value: string;
-  description: string;
-  preview: string;
-}
+import { LayoutOption, ThemeOption } from "@/types/theme.interface";
 
 export const THEME_OPTIONS: ThemeOption[] = [
   {
@@ -31,13 +26,6 @@ export const THEME_OPTIONS: ThemeOption[] = [
     preview: "/themes/style_simple.png"
   }
 ];
-
-export interface LayoutOption {
-  value: string;
-  label: string;
-  description: string;
-  preview: string;
-}
 
 export const LAYOUT_OPTIONS: LayoutOption[] = [
   {

@@ -1,0 +1,22 @@
+export const SOCIAL_MEDIA_PLATFORMS = [
+    { name: 'Facebook', icon: '📘' },
+    { name: 'Twitter', icon: '🐦' },
+    { name: 'LinkedIn', icon: '💼' },
+    { name: 'Instagram', icon: '📷' },
+    { name: 'YouTube', icon: '📺' },
+    { name: 'TikTok', icon: '🎵' },
+    { name: 'GitHub', icon: '💻' },
+    { name: 'Discord', icon: '🎮' },
+    { name: 'Telegram', icon: '✈️' },
+    { name: 'WhatsApp', icon: '💬' },
+    { name: 'Snapchat', icon: '👻' },
+    { name: 'Pinterest', icon: '📌' },
+    { name: 'Reddit', icon: '🤖' },
+    { name: 'Twitch', icon: '🟣' },
+    { name: 'Spotify', icon: '🎵' },
+    { name: 'Medium', icon: '📝' },
+    { name: 'Behance', icon: '🎨' },
+    { name: 'Dribbble', icon: '🏀' },
+    { name: 'Slack', icon: '💼' },
+    { name: 'Skype', icon: '📞' }
+];

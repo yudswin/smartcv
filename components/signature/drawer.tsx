@@ -14,9 +14,9 @@ export const Drawer: React.FC<DrawerProps> = ({
 }) => {
     return (
         <div className={`transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]
-xl:overflow-none relative mx-auto grid w-[80%] max-w-screen-lg grid-cols-3 gap-2 overflow-hidden pb-10 sm:gap-4 lg:grid-cols-4 lg:gap-8 lg:pb-10 xl:max-w-screen-xl xl:grid-cols-5 2xl:gap-10 ${toggle ? 'lg:h-[28rem] xl:h-[30rem] 2xl:h-[32rem]' : 'h-full'} ${className}`}>
+xl:overflow-none relative mx-auto grid w-[80%] max-w-screen-lg grid-cols-3 gap-2 overflow-hidden pb-10 sm:gap-4 lg:grid-cols-4 lg:gap-8 lg:pb-10 xl:max-w-screen-xl xl:grid-cols-5 2xl:gap-10 ${toggle ? 'md:h-[26rem] lg:h-[28rem] xl:h-[30rem] 2xl:h-[32rem]' : 'h-full'} ${className}`}>
             {children}
-            <div className={`absolute bottom-0 left-0 z-10 grid h-60 w-full place-content-center bg-gradient-to-t from-42% from-white dark:from-black transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${toggle
+            <div className={`absolute bottom-0 left-0 z-10 grid h-60 w-full place-content-center bg-gradient-to-t from-42% from-background transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] ${toggle
                     ? 'opacity-100 translate-y-0 pointer-events-auto'
                     : 'opacity-0 translate-y-4 pointer-events-none'
                 }`}>
